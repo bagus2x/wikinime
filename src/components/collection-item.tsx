@@ -44,7 +44,7 @@ export default function CollectionItem({
     <CollectionItemContainer variants={itemVariants} exit={{ scale: 0, opacity: 0 }} layout>
       <AnimeSwiper effect='cards' grabCursor={true} modules={[EffectCards]} className='mySwiper'>
         {collection.animes.map((anime) => (
-          <AnimeSwiperSlide>
+          <AnimeSwiperSlide key={anime.id}>
             <Image
               alt={anime.title.romaji || anime.title.english || anime.title.native}
               src={
