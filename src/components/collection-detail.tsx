@@ -128,7 +128,7 @@ export default function CollectionDetail({ collectionId }: CollectionDetailProps
           <AlertDialog
             open={dialogEvent.type === 'REMOVE_ANIME_FROM_COLLECTION'}
             title={`Remove anime from ${collection.name}?`}
-            description={`This action cannot be undone. This will permanently remove your anime from ${collection.name}`}
+            description={`This action cannot be undone. This will permanently remove ${dialogEvent.anime.title.romaji} from ${collection.name}`}
             onCancel={() => setDialogEvent({ type: 'NONE' })}
             onAction={handleRemoveAnime}
           />
