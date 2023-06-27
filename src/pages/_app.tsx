@@ -1,8 +1,9 @@
 import { ApolloProvider } from '@apollo/client'
+import { Global } from '@emotion/react'
 import CollectionProvider from '@wikinime/components/collection-provider'
 import Layout from '@wikinime/components/layout'
-import '@wikinime/styles/globals.css'
-import client from '@wikinime/utils/appolo-client'
+import client from '@wikinime/gql/appolo-client'
+import { globalCss } from '@wikinime/styles/global'
 import { AnimatePresence } from 'framer-motion'
 import type { AppProps } from 'next/app'
 import { Inter } from 'next/font/google'
@@ -32,6 +33,7 @@ export default function App({ Component, pageProps }: AppProps) {
 
   return (
     <>
+      <Global styles={globalCss} />
       <ApolloProvider client={client}>
         <Layout>
           <Head>

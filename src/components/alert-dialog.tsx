@@ -15,11 +15,9 @@ export default function AlertDialog({ open, onCancel, onAction, title, descripti
     <AlertDialogUnstyled.Root open={open}>
       <AlertDialogUnstyled.Portal>
         <AlertDialogOverlay />
-        <AlertDialogContent className='AlertDialogRawContent'>
-          {!!title && <AlertDialoTitle className='AlertDialogRawTitle'>{title}</AlertDialoTitle>}
-          {!!description && (
-            <AlertDialogDescription className='AlertDialogRawDescription'>{description}</AlertDialogDescription>
-          )}
+        <AlertDialogContent>
+          {!!title && <AlertDialoTitle>{title}</AlertDialoTitle>}
+          {!!description && <AlertDialogDescription>{description}</AlertDialogDescription>}
           <div style={{ display: 'flex', gap: 16, justifyContent: 'flex-end' }}>
             <AlertDialogCancel onClick={onCancel}>Cancel</AlertDialogCancel>
             <AlertDialogAction onClick={onAction}>Yes</AlertDialogAction>

@@ -155,7 +155,7 @@ const AnimeListContainer = styled(motion.div)`
 `
 
 const Pagination = styled(ReactPaginate)`
-  margin-bottom: 32px;
+  margin-bottom: 120px;
   display: flex;
   flex-wrap: wrap;
   align-self: center;
