@@ -1,7 +1,7 @@
 import styled from '@emotion/styled'
 import Anime from '@wikinime/models/anime'
 import { Variants, motion } from 'framer-motion'
-import { MinusCircleIcon, PlusCircleIcon } from 'lucide-react'
+import { MinusCircleIcon, PlusCircleIcon, Trash2Icon } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
@@ -11,6 +11,7 @@ export interface AnimeItemCardProps {
   selected?: boolean
   onSelect?: () => void
   onUnselect?: () => void
+  onRemove?: () => void
 }
 
 const itemVariants: Variants = {
@@ -27,7 +28,7 @@ const itemVariants: Variants = {
   },
 }
 
-export default function AnimeItem({ anime, selected, onSelect, onUnselect }: AnimeItemCardProps) {
+export default function AnimeItem({ anime, selected, onSelect, onUnselect, onRemove }: AnimeItemCardProps) {
   const router = useRouter()
 
   return (
@@ -50,6 +51,11 @@ export default function AnimeItem({ anime, selected, onSelect, onUnselect }: Ani
         {!selected && (
           <BookmarkButton onClick={onSelect}>
             <PlusCircleIcon size={16} />
+          </BookmarkButton>
+        )}
+        {!!onRemove && (
+          <BookmarkButton onClick={onRemove}>
+            <Trash2Icon size={16} />
           </BookmarkButton>
         )}
       </AnimeItemCover>
@@ -114,7 +120,9 @@ const AnimeGenreList = styled.div`
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  gap: 8px;
+  & > *:not(:last-child) {
+    margin-right: 8px;
+  }
 `
 const AnimeGenreItem = styled.span`
   border: 1px solid #1e293b;

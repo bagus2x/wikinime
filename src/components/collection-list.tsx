@@ -8,7 +8,7 @@ import Anime from '@wikinime/models/anime'
 import { Collection } from '@wikinime/models/collection'
 import { AnimatePresence, Variants, motion } from 'framer-motion'
 import { PlusIcon } from 'lucide-react'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
 
 const containerVariants: Variants = {
@@ -32,6 +32,13 @@ type DialogEvent =
 export default function CollectionList() {
   const { collections, dispatchCollection } = useCollections()
   const [dialogEvent, setDialogEvent] = useState<DialogEvent>({ type: 'NONE' }) // CRUD Dialog
+  const [motion, setMotion] = useState(true)
+
+  useEffect(() => {
+    setTimeout(() => {
+      setMotion(false)
+    }, 500)
+  }, [])
 
   const handleCreateNewCollection = (newCollectionName: string) => {
     if (newCollectionName) {
@@ -57,7 +64,7 @@ export default function CollectionList() {
     }
   }
 
-  const handleRemovoAnime = () => {
+  const handleRemoveAnime = () => {
     if (dialogEvent.type === 'REMOVE_ANIME_FROM_COLLECTION') {
       dispatchCollection({
         type: 'UPDATE_COLLECTION',
@@ -85,10 +92,10 @@ export default function CollectionList() {
         <CollectionListHeader>
           <CollectionListTitle>My Collections</CollectionListTitle>
           <NewCollectionButton onClick={() => setDialogEvent({ type: 'NEW_COLLECTION' })}>
-            <PlusIcon />
+            <PlusIcon size={20} />
           </NewCollectionButton>
         </CollectionListHeader>
-        <CollectionListContainer variants={containerVariants}>
+        <CollectionListContainer variants={containerVariants} initial={motion ? 'hidden' : 'show'} whileInView='show'>
           <AnimatePresence>
             {collections.map((collection) => (
               <CollectionItem
@@ -122,7 +129,7 @@ export default function CollectionList() {
           title={`Remove anime from ${dialogEvent.collection.name}?`}
           description={`This action cannot be undone. This will permanently remove your anime from ${dialogEvent.collection.name}`}
           onCancel={() => setDialogEvent({ type: 'NONE' })}
-          onAction={handleRemovoAnime}
+          onAction={handleRemoveAnime}
         />
       )}
       {dialogEvent.type === 'UPDATE_COLLECTION' && (
@@ -171,7 +178,7 @@ const NewCollectionButton = styled.button`
     cursor: pointer;
     ::after {
       margin-left: 8px;
-      content: 'Create New Collection';
+      content: 'Add a collection';
     }
   }
 `

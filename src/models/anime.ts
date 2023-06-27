@@ -15,7 +15,7 @@ export default interface Anime {
   bannerImage: string | null
   meanScore: number
   seasonYear: number
-  season: string
+  season?: string
   genres: string[]
   episodes: number
   updatedAt: number

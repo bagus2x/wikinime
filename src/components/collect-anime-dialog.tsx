@@ -3,16 +3,16 @@ import * as Dialog from '@radix-ui/react-dialog'
 import { useCollections } from '@wikinime/components/collection-provider'
 import Anime from '@wikinime/models/anime'
 import { Collection } from '@wikinime/models/collection'
-import { motion } from 'framer-motion'
-import { ChangeEvent, useMemo, useState } from 'react'
+import React, { ChangeEvent, useMemo, useState } from 'react'
 import toast from 'react-hot-toast'
 
 export interface SaveAnimeDialogProps {
   animes: Anime[]
-  onSaved: () => void
+  onSaved?: () => void
+  trigger?: React.ReactNode
 }
 
-export default function CollectAnimeDialog({ animes, onSaved }: SaveAnimeDialogProps) {
+export default function CollectAnimeDialog({ animes, onSaved, trigger }: SaveAnimeDialogProps) {
   const [selectedCollectionsObj, setSelectedCollectionsObj] = useState<{ [key: number]: Collection }>([])
   const selectedCollections = useMemo(() => Object.values(selectedCollectionsObj), [selectedCollectionsObj])
   const [newCollectionName, setNewCollectionName] = useState('')
@@ -57,23 +57,19 @@ export default function CollectAnimeDialog({ animes, onSaved }: SaveAnimeDialogP
     }
 
     if (saved) {
-      onSaved()
+      if (onSaved) onSaved()
       toast.success('Animes succesfully added 🎉')
     }
   }
 
   return (
     <Dialog.Root>
-      <Dialog.Trigger asChild>
-        <Fab whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
-          Save {animes.length} animes into collections 💾
-        </Fab>
-      </Dialog.Trigger>
+      {trigger && <Dialog.Trigger asChild>{trigger}</Dialog.Trigger>}
       <Dialog.Portal>
         <DialogOverlay />
         <DialogContent className='DialogContent'>
-          <DialogTitle className='DialogTitle'>Save anime</DialogTitle>
-          <DialogDescription className='DialogDescription'>Select collection or create new one!</DialogDescription>
+          <DialogTitle className='DialogTitle'>Add anime</DialogTitle>
+          <DialogDescription className='DialogDescription'>Select collections or create a new one!</DialogDescription>
           <CollectionsContainer>
             {collections.map((collection) => (
               <Label key={collection.id} style={{ marginBottom: 16 }}>
@@ -123,22 +119,6 @@ export default function CollectAnimeDialog({ animes, onSaved }: SaveAnimeDialogP
     </Dialog.Root>
   )
 }
-
-const Fab = styled(motion.button)`
-  position: fixed;
-  display: flex;
-  flex-direction: column;
-  align-items: end;
-  background-color: #059669;
-  right: 16px;
-  bottom: 16px;
-  padding: 16px;
-  border-radius: 16px;
-  font-size: 1rem;
-  border: none;
-  color: inherit;
-  cursor: pointer;
-`
 
 const DialogOverlay = styled(Dialog.Overlay)`
   position: fixed;

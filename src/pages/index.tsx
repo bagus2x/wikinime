@@ -1,11 +1,7 @@
 import AnimeList from '@wikinime/components/anime-list'
-import Anime from '@wikinime/models/anime'
-import Page from '@wikinime/models/paging'
-import { getAnimes } from '@wikinime/services/anime-services'
-import { GetStaticProps, InferGetStaticPropsType } from 'next'
 import Head from 'next/head'
 
-export default function HomePage({ initialAnimes }: InferGetStaticPropsType<typeof getStaticProps>) {
+export default function HomePage() {
   return (
     <>
       <Head>
@@ -14,12 +10,7 @@ export default function HomePage({ initialAnimes }: InferGetStaticPropsType<type
         <meta name='viewport' content='width=device-width, initial-scale=1' />
         <link rel='icon' href='/favicon.ico' />
       </Head>
-      <AnimeList initial={initialAnimes} />
+      <AnimeList />
     </>
   )
-}
-
-export const getStaticProps: GetStaticProps<{ initialAnimes: Page<Anime> }> = async () => {
-  const initialAnimes = await getAnimes({ page: 1, perPage: 20 })
-  return { props: { initialAnimes }, revalidate: 60 }
 }

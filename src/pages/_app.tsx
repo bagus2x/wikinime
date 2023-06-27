@@ -1,6 +1,9 @@
+import { ApolloProvider } from '@apollo/client'
 import CollectionProvider from '@wikinime/components/collection-provider'
 import Layout from '@wikinime/components/layout'
 import '@wikinime/styles/globals.css'
+import client from '@wikinime/utils/appolo-client'
+import { AnimatePresence } from 'framer-motion'
 import type { AppProps } from 'next/app'
 import { Inter } from 'next/font/google'
 import Head from 'next/head'
@@ -29,19 +32,23 @@ export default function App({ Component, pageProps }: AppProps) {
 
   return (
     <>
-      <Layout>
-        <Head>
-          <link rel='shortcut icon' href='/images/favicon.ico' />
-        </Head>
-        <CollectionProvider>
-          <style jsx global>{`
-            html {
-              font-family: ${inter.style.fontFamily};
-            }
-          `}</style>
-          <Component {...pageProps} />
-        </CollectionProvider>
-      </Layout>
+      <ApolloProvider client={client}>
+        <Layout>
+          <Head>
+            <link rel='shortcut icon' href='/images/favicon.ico' />
+          </Head>
+          <CollectionProvider>
+            <style jsx global>{`
+              html {
+                font-family: ${inter.style.fontFamily};
+              }
+            `}</style>
+            <AnimatePresence>
+              <Component {...pageProps} />
+            </AnimatePresence>
+          </CollectionProvider>
+        </Layout>
+      </ApolloProvider>
       <Toaster />
     </>
   )

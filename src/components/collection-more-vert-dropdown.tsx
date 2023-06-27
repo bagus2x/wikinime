@@ -24,12 +24,14 @@ export default function CollectionMoreVertDropdown({
         <DropdownMenuContent sideOffset={5}>
           {onDeleteAnime && (
             <>
-              <DropdownMenuItem onClick={onDeleteAnime}>Remove anime</DropdownMenuItem>
+              <DropdownMenuItem onClick={onDeleteAnime}>Remove single anime</DropdownMenuItem>
               <DropdownMenuItemDivier />
             </>
           )}
           {onEditCollection && <DropdownMenuItem onClick={onEditCollection}>Edit collection</DropdownMenuItem>}
-          {onDeleteCollection && <DropdownMenuItem onClick={onDeleteCollection}>Delete collection</DropdownMenuItem>}
+          {onDeleteCollection && (
+            <DropdownMenuItem onClick={onDeleteCollection}>Delete collection and all animes</DropdownMenuItem>
+          )}
           <DropdownMenu.Arrow style={{ fill: 'white' }} />
         </DropdownMenuContent>
       </DropdownMenu.Portal>
