@@ -1,6 +1,7 @@
 import '@testing-library/jest-dom'
 import { render, screen } from '@testing-library/react'
 import AlertDialog from '@wikinime/components/alert-dialog'
+import React from 'react'
 
 describe('AlertDialog', () => {
   let title: string
