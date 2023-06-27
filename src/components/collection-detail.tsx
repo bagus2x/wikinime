@@ -5,10 +5,10 @@ import { useCollections } from '@wikinime/components/collection-provider'
 import UpdateCollectionDialog from '@wikinime/components/update-collection-dialog'
 import Anime from '@wikinime/models/anime'
 import { Collection } from '@wikinime/models/collection'
-import { AnimatePresence, Variants, animate, motion } from 'framer-motion'
+import { AnimatePresence, Variants, motion } from 'framer-motion'
 import { Edit2Icon, Trash2Icon } from 'lucide-react'
 import Head from 'next/head'
-import { useEffect, useMemo, useState } from 'react'
+import { useMemo, useState } from 'react'
 import { toast } from 'react-hot-toast'
 
 export interface CollectionDetailProps {
@@ -68,9 +68,19 @@ export default function CollectionDetail({ collectionId }: CollectionDetailProps
 
   const handleUpdateCollection = (editedCollection: Collection) => {
     if (dialogEvent.type === 'UPDATE_COLLECTION') {
-      dispatchCollection({ type: 'UPDATE_COLLECTION', collection: editedCollection })
+      const isNameDuplicate = collections
+        .filter((collection) => collection.id !== editedCollection.id)
+        .map((collection) => collection.name.toLowerCase())
+        .includes(editedCollection.name.toLowerCase())
+
+      if (isNameDuplicate) {
+        toast.error('Collection name must be unique')
+      } else {
+        dispatchCollection({ type: 'UPDATE_COLLECTION', collection: editedCollection })
+        toast.success('Collections updated')
+      }
+
       setDialogEvent({ type: 'NONE' })
-      toast.success('Collections updated')
     }
   }
 

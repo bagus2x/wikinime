@@ -6,6 +6,7 @@ import { Variants, motion } from 'framer-motion'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
+import { useMemo } from 'react'
 import { EffectCards } from 'swiper'
 import 'swiper/css'
 import 'swiper/css/effect-cards'
@@ -39,11 +40,12 @@ export default function CollectionItem({
   onRemoveAnime,
 }: CollectionItemProps) {
   const router = useRouter()
+  const animes = useMemo(() => collection.animes.slice(0, 5), [collection])
 
   return (
     <CollectionItemContainer variants={itemVariants} exit={{ scale: 0, opacity: 0 }} layout>
       <AnimeSwiper effect='cards' grabCursor={true} modules={[EffectCards]} className='mySwiper'>
-        {collection.animes.map((anime) => (
+        {animes.map((anime) => (
           <AnimeSwiperSlide key={anime.id}>
             <Image
               alt={anime.title.romaji || anime.title.english || anime.title.native}

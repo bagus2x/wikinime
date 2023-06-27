@@ -80,9 +80,18 @@ export default function CollectionList() {
 
   const handleUpdateCollection = (editedCollection: Collection) => {
     if (dialogEvent.type === 'UPDATE_COLLECTION') {
-      dispatchCollection({ type: 'UPDATE_COLLECTION', collection: editedCollection })
+      const isNameDuplicate = collections
+        .filter((collection) => collection.id !== editedCollection.id)
+        .map((collection) => collection.name.toLowerCase())
+        .includes(editedCollection.name.toLowerCase())
+
+      if (isNameDuplicate) {
+        toast.error('Collection name must be unique')
+      } else {
+        dispatchCollection({ type: 'UPDATE_COLLECTION', collection: editedCollection })
+        toast.success('Collections updated')
+      }
       setDialogEvent({ type: 'NONE' })
-      toast.success('Collections updated')
     }
   }
 

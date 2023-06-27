@@ -76,7 +76,8 @@ export default function AnimeDetailPage() {
                 </div>
                 <CollectAnimeDialog
                   animes={[anime]}
-                  trigger={<AddToCollectionButton>Add to Collection</AddToCollectionButton>}
+                  trigger={<AddToCollectionButton>Add to collection</AddToCollectionButton>}
+                  key={animeCollections.length}
                 />
               </AnimeDetailInfo>
               <AnimeDescriptionTitle>Description</AnimeDescriptionTitle>
