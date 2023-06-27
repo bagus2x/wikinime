@@ -67,9 +67,9 @@ export default function CollectAnimeDialog({ animes, onSaved, trigger }: SaveAni
       {trigger && <Dialog.Trigger asChild>{trigger}</Dialog.Trigger>}
       <Dialog.Portal>
         <DialogOverlay />
-        <DialogContent className='DialogContent'>
-          <DialogTitle className='DialogTitle'>Add anime</DialogTitle>
-          <DialogDescription className='DialogDescription'>Select collections or create a new one!</DialogDescription>
+        <DialogContent>
+          <DialogTitle>Add anime</DialogTitle>
+          <DialogDescription>Select collections or create a new one!</DialogDescription>
           <CollectionsContainer>
             {collections.map((collection) => (
               <Label key={collection.id} style={{ marginBottom: 16 }}>
