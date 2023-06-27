@@ -15,9 +15,9 @@ export default function CreateCollectionDialog({ onSave, onCancel, open }: Creat
     <Dialog.Root open={!!open}>
       <Dialog.Portal>
         <DialogOverlay />
-        <DialogContent className='DialogContent'>
-          <DialogTitle className='DialogTitle'>Create collection</DialogTitle>
-          <DialogDescription className='DialogDescription'>Type your collection name</DialogDescription>
+        <DialogContent>
+          <DialogTitle>Create collection</DialogTitle>
+          <DialogDescription>Type your collection name</DialogDescription>
           <Input
             type='text'
             placeholder='New collection name'
